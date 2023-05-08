@@ -7,7 +7,7 @@ Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7598539.svg)](https:
 Arxiv Preprint: [![arXiv](https://img.shields.io/badge/arXiv-2303.03750-b31b1b.svg)](https://arxiv.org/abs/2303.03750)
 
 ## About dataset
-The dataset contains editions from the South African government magazine Vuk'uzenzele. Data was scraped from PDFs that have been placed in the [data/raw](data/raw/) folder.
+The dataset contains editions from the South African government magazine Vuk'uzenzele, created by the [Government Communication and Information System (GCIS)](https://www.gcis.gov.za/). Data was scraped from PDFs that have been placed in the [data/raw](data/raw/) folder.
 The PDFS were obtatined from the [Vuk'uzenzele website](https://www.vukuzenzele.gov.za/).
 
 The datasets contain government magazine editions in 11 languages, namely:
@@ -139,5 +139,5 @@ Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci, Isheanesu Dz
 
 Licences
 -------
-* License for Data - [CC 4.0 BY SA](LICENSE.data.md)
+* License for Data - [CC 4.0 BY](LICENSE.data.md)
 * Licence for Code - [MIT License](LICENSE.md)

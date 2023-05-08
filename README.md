@@ -22,64 +22,64 @@ The datasets contain government magazine editions in 11 languages, namely:
 | Sesotho    | (nso) |
 
 ### Number of Aligned Pairs with Cosine Similarity Score >= 0.65
+|src_lang| 	trg_lang| 	num_aligned_pairs| 
+|--------|---------|-----------|
+|ssw|      	xho|      	2202|
+|ssw|      	zul|      	2183|
+|xho|      	zul|      	2102|
+|nso|      	xho|      	2081|
+|nso|      	tso|      	2071|
+|ssw|      	tso|      	2034|
+|nso|      	ssw|      	2021|
+|tsn|      	tso|      	2020|
+|tsn|      	xho|      	2009|
+|tso|      	xho|      	2009|
+|nso|      	tsn|      	2002|
+|ssw|      	tsn|      	1987|
+|tso|      	zul|      	1957|
+|nso|      	zul|      	1953|
+|tsn|      	zul|      	1933|
+|eng|      	zul|      	1923|
+|eng|      	tso|      	1923|
+|eng|      	nso|      	1867|
+|eng|      	ssw|      	1821|
+|afr|      	xho|      	1816|
+|eng|      	xho|      	1801|
+|nbl|      	sep|      	1795|
+|sep|      	ven|      	1794|
+|afr|      	ssw|      	1783|
+|eng|      	tsn|      	1772|
+|afr|      	zul|      	1769|
+|afr|      	nso|      	1746|
+|nbl|      	ven|      	1699|
+|afr|      	eng|      	1661|
+|afr|      	tsn|      	1631|
+|afr|      	tso|      	1617|
+|afr|      	sep|      	551|
+|afr|      	ven|      	498|
+|afr|      	nbl|      	491|
+|nso|      	sep|      	410|
+|nso|      	ven|      	352|
+|sep|      	tso|      	326|
+|sep|      	tsn|      	319|
+|tso|      	ven|      	307|
+|sep|      	ssw|      	305|
+|sep|      	xho|      	300|
+|ssw|      	ven|      	290|
+|tsn|      	ven|      	285|
+|nbl|      	ssw|      	282|
+|nbl|      	nso|      	266|
+|ven|      	xho|      	260|
+|eng|      	sep|      	258|
+|nbl|      	xho|      	250|
+|sep|      	zul|      	249|
+|nbl|      	tso|      	238|
+|eng|      	ven|      	234|
+|nbl|      	tsn|      	230|
+|nbl|      	zul|      	226|
+|ven|      	zul|      	225|
+|eng|      	nbl|      	184|
 
-| src_lang |trg_lang | num_aligned_pairs |
-| -------- | ------- | ----------------- |
-| ssw      |zul      |2161|
-| eng      |tso      |2016|
-| ssw      |xho      |1965|
-| xho      |zul      |1895|
-| eng      |zul      |1888|
-| tso      |zul      |1758|
-| eng      |nso      |1721|
-| ssw      |tso      |1657|
-| eng      |ssw      |1601|
-| tsn      |tso      |1570|
-| afr      |ssw      |1496|
-| nso      |tso      |1491|
-| tso      |xho      |1485|
-| afr      |zul      |1384|
-| eng      |tsn      |1380|
-| afr      |eng      |1369|
-| afr      |xho      |1363|
-| eng      |xho      |1354|
-| tsn      |zul      |1346|
-| nso      |tsn      |1279|
-| ssw      |tsn      |1263|
-| nso      |xho      |1248|
-| nso      |zul      |1247|
-| tsn      |xho      |1209|
-| sep      |ven      |1140|
-| afr      |tso      |1139|
-| nso      |ssw      |1132|
-| afr      |tsn      |1076|
-| afr      |nso      |962|
-| nbl      |sep      |843|
-| nbl      |ven      |657|
-| afr      |sep      |394|
-| afr      |nbl      |359|
-| nso      |sep      |349|
-| sep      |tso      |324|
-| sep      |tsn      |302|
-| afr      |ven      |281|
-| sep      |xho      |279|
-| eng      |sep      |276|
-| nbl      |ssw      |264|
-| nso      |ven      |262|
-| tso      |ven      |256|
-| eng      |ven      |243|
-| tsn      |ven      |235|
-| nbl      |zul      |227|
-| sep      |zul      |223|
-| sep      |ssw      |219|
-| ssw      |ven      |217|
-| ven      |xho      |215|
-| nbl      |tso      |215|
-| nbl      |xho      |204|
-| ven      |zul      |186|
-| eng      |nbl      |153|
-| nbl      |nso      |151|
-| nbl      |tsn      |140|
 
 
 The dataset is present in several forms on the repo. 

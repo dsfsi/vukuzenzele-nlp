@@ -76,10 +76,8 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-data/*
-!data/sentence_align_output/
-!data/simple_align_output/
-!data/embed/
+data/tokenised/
+data/embed/
 
 # Mac OS-specific storage files
 .DS_Store

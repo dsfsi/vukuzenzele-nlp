@@ -111,11 +111,16 @@ Paper
 
 [Preparing the Vuk'uzenzele and ZA-gov-multilingual South African  multilingual corpora](https://arxiv.org/pdf/2303.03750)
 
-> @article{lastrucci2023preparing,
-  title   = {Preparing the Vuk'uzenzele and ZA-gov-multilingual South African multilingual corpora},
-  author  = {Richard Lastrucci and Isheanesu Dzingirai and Jenalea Rajab and Andani Madodonga and Matimba Shingange and Daniel Njini and Vukosi Marivate},
-  year    = {2023},
-  journal = {arXiv: Arxiv-2303.03750}
+> @inproceedings{lastrucci-etal-2023-preparing,
+    title = "Preparing the Vuk{'}uzenzele and {ZA}-gov-multilingual {S}outh {A}frican multilingual corpora",
+    author = "Richard Lastrucci and Isheanesu Dzingirai and Jenalea Rajab and Andani Madodonga and Matimba Shingange and Daniel Njini and Vukosi Marivate",
+    booktitle = "Proceedings of the Fourth workshop on Resources for African Indigenous Languages (RAIL 2023)",
+    month = may,
+    year = "2023",
+    address = "Dubrovnik, Croatia",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.rail-1.3",
+    pages = "18--25"
 }
 
 Dataset

@@ -96,6 +96,10 @@ The data directory is broken down as follows
 ```
 The dataset is split by edition in the [data/processed](data/processed/) folder.
 
+Disclaimer
+-------
+This dataset contains machine-readable data extracted from PDF documents, from https://www.vukuzenzele.gov.za/, provided by the Government Communication Information System (GCIS). While efforts were made to ensure the accuracy and completeness of this data, there may be errors or discrepancies between the original publications and this dataset. No warranties, guarantees or representations are given in relation to the information contained in the dataset. The members of the Data Science for Societal Impact Research Group bear no responsibility and/or liability for any such errors or discrepancies in this dataset. The Government Communication Information System (GCIS) bears no responsibility and/or liability for any such errors or discrepancies in this dataset. It is recommended that users verify all information contained herein before making decisions based upon this information.
+
 Authors
 -------
 - Vukosi Marivate - [@vukosi](https://twitter.com/vukosi)

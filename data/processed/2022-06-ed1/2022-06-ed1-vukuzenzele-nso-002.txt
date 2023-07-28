@@ -1,24 +1,24 @@
-Lata karete ya hao ya laesense ya ho kganna 
+Tšea karata ya gago ya lengwalo la bootledi
 
 Vukuzenzele Unnamed
 
-Bakganni ba entseng dikopo tsa dilaesense tsa ho kganna kapa ho ntjhafatsa dikarete kapa diphomete tsa seporofeshenale tsa ho kganna (PrDP) pakeng tsa Mphalane le Tshitwe ngwahola ba kgothaletswa ho ya di lata.
-Ho ya ka Koporasi ya Bolaodi ba Sephethephethe Mebileng (RTMC), ke feela 42% ya dikarete tsa dilaesense tsa ho kganna tse 32 748 tse hlahisitsweng nakong ena tse latuweng.
-Letona la Dipalangwang Fikile Mbalula le butse ditsi tsa phano ya dilaesense tsa RTMC Midrand le Eco Park ngwahola, e le karabelo ya tshallomorao ya dilaesense tsa ho kganna tse felletsweng ke nako ka lebaka la COVID-19.
-Akhaonte ya Dikarete tsa  Dilaesense tsa ho Kganna, e hatisang dilaesense, e sebetsa bosiu le motsheare ho akofisa tlhahiso mme e ntse e le motjheng wa ho fedisa tshallomorao mafelong a Phuptjane.
-RTMC e re batho ba lokela ho lekola boemo ba dikopo tsa bona pele ba leba ditsing tsa diteko ba ilo di lata.
-Sena se ka etswa ka SMS kapa ka inthanete.
-Ho lekola ka SMS boemo ba dikopo tsa bona tsa dilaesense tsa ho kganna
-Bakeng sa bothata ba dilaesense tsa ho kganna, baikopedi ba ka romela dinomoro tsa bona tsa ID ka SMS ho 33214. Ebe ba tla fumana e nngwe ya di-SMS tse ka tlase mona: 
-• Application received: The application was received, but has not yet been processed.
+Boradifatanaga bao ba dirilego dikgopelo tša karata ya lengwalo la bootledi le leswa goba leo le tsošološitšwego goba phemiti ya bootledi bja profešenale (PrDP) gare ga Diphalane le Manthole tša ngwaga wa 2021 ba hlohleletšwa go ya go di tšea.
+Go ya ka Lekala la Taolo ya Sephethephethe Ditseleng (RTMC), ke fela 42% ya dikarata tša lengwalo la bootledi tše 32 748 tše di tšweleditšwego sebakeng se tšeo di tšerwego ke beng ba tšona.
+Tona ya Dinamelwa Fikile Mbalula o butše disentha tša mangwalo a bootledi tša RTMC go la Midrand le Eco Park ngwagola, go šogana le tšhalelomorago ya mangwalo a bootlodi ao a feletšwego ke nako ka lebaka la COVID-19.
+Akhaonte ya Dikarata tša Mangwalo a Bootledi, yeo e gatišago mangwalo a bootledi, e šoma bošego le mosegare go oketša tšweletšo gomme e tšwelapele go fediša tšhalelomorago mo mafelelong a Phupu.
+RTMC e bolela gore batho ba ka lebelela maemo a dikgopelo tša bona pele ba e ya go tšea dikarata tša bona sentheng ya diteko. Se se ka dirwa ka SMS goba ka Inthanete.
+Go botšiša ka ga lengwalo la bootledi ka SMS
+Go botšiša ka lengwalo la bootledi, bakgopedi ba ka romela nomoro ya ID ya bona ka SMS mo go 33214.
+Morago ba tla amogela ye nngwe ya di-SMS tša ka mo fase:
+• Application received: The application was received, but  has not yet been processed.
 • Production queue: The card is still being processed and manufactured.
 • Produced and ready for collection: The card will be ready for collection in 21 days. However, due to the high number of cards being processed, the RTMC advises you to wait 35 days before going to collect.
-• Problem card: There is a  problem with the production of your card. Please return to the testing centre.
-Ho lekola boemo ba kopo ya hao ya PrDP, romela nomoro ya ID ka SMS ho 44220.
-Ho lekola ka inthanete boemo ba dikopo tsa bona tsa dilaesense tsa ho kganna
-O ka boela wa tseba boemo ba kopo ya hao mahala ka  inthanete.
+• Problem card: There is a problem with the production of your card. Please return to the testing centre.
+Go botšiša ka kgopelo ya PrDP, romela nomoro ya gago ya ID ka SMS mo go 44220.
+Go botšiša ka ga lengwalo la bootledi ka Inthanete
+Gape o ka tseba maemo a kgopelo ya gago mahala ka Inthanete.
 • Etela online.natis.gov.za.
-• Iketsetse porofaele mme o kene websaeteng.
-• Tobetsa boemo ba kopo ya hao websaeteng.
-Bao dilaesense tsa bona di felletsweng ke nako pakeng tsa Tlhakubele 2020 le 31 Phato 2021, ba tlotsweng ke letsatsi la ho qetela la ho ntjhafatsa la 5 Motsheanong, ba eletswa ho iphumanela laesense ya ho kganna ya nakwana ha ba etsa kopo ya ho ntjhafatsa bakeng sa ho dula ba ntse ba imatahantse le molao.
-Leha ditsi tsa RTMC di butswe Mantaha ho isa Sontaha ho tloha ka hora ya bosupa hoseng ho fihlela ka hora ya borobong bosiu, setjhaba se kgothaletswa ho nka monyetla wa mela e mekgutshwane ka boLabohlano le mafelong a beke.
+• Bula profaele gomme o tsene go yona.
+• Kgotla maemo a kgopelo ya gago godimo ga weposaete ye.
+Bao mangwalo a bona a bootledi a feletšwego ke nako gare ga Hlakola 2020 le 31 Phato 2021, gomme ba tshetšwe ke letšatši la mafelelo la tsošološo la 5 Mopitlo, ba eletšwa go hwetša lengwalo la bootledi la nakwana ge ba dira kgopelo ya tsošološo ya lengwalo la bona gore ba dule ba latela molao.
+Mola disentha tša RTMC di bulwa Mošupologo go fihla Sontaga go tloga 7 mesong go fihla 9 mantšiboa, maloko a setšhaba a hlohleletšwa go šomiša menyetla ya methaladi ye mekopana ka Malabohlano le mafelelong a beke.

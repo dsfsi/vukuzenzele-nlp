@@ -18,8 +18,8 @@ Notes:
 	AFR - Afrikaans
 	ENG - English
 	NBL - Ndebele
-	NSO - Sesotho
-	SEP - Sepedi
+	SOT - Sesotho
+	NSO - Sepedi
 	SSW - Siswati
 	TSN - Setswana
 	TSO - Xitsonga

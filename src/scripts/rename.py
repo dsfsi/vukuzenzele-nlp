@@ -32,15 +32,15 @@ def rename_data_dirs():
                 for f in files:
                     source = "{}/{}".format(ed_path,f)
                     
-                    if re.search('nso', f):
-                        new = re.sub('nso', 'sot', f)
-                        dest = "{}/{}".format(ed_path,new)
-                        os.rename(source, dest)
-
-                    # if re.search('sep', f):
-                    #     new = re.sub('sep', 'nso', f)
+                    # if re.search('nso', f):
+                    #     new = re.sub('nso', 'sot', f)
                     #     dest = "{}/{}".format(ed_path,new)
                     #     os.rename(source, dest)
+
+                    if re.search('sep', f):
+                        new = re.sub('sep', 'nso', f)
+                        dest = "{}/{}".format(ed_path,new)
+                        os.rename(source, dest)
 
 def rename_out_dirs():
     for out_dir in OUT_DIRS:

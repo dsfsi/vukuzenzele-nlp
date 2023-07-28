@@ -37,10 +37,10 @@ def rename_data_dirs():
                     #     dest = "{}/{}".format(ed_path,new)
                     #     os.rename(source, dest)
 
-                    if re.search('sep', f):
-                        new = re.sub('sep', 'nso', f)
-                        dest = "{}/{}".format(ed_path,new)
-                        os.rename(source, dest)
+                    # if re.search('sep', f):
+                    #     new = re.sub('sep', 'nso', f)
+                    #     dest = "{}/{}".format(ed_path,new)
+                    #     os.rename(source, dest)
 
 def rename_out_dirs():
     for out_dir in OUT_DIRS:
@@ -60,8 +60,8 @@ def rename_out_dirs():
 
         
 if __name__ == "__main__":
-    rename_data_dirs()
-    # rename_out_dirs()
+    # rename_data_dirs()
+    rename_out_dirs()
            
     
             

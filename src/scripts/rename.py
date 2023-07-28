@@ -14,7 +14,7 @@ SIMPLE_ALIGNED_PATH = Path(DATA_PATH / 'simple_align_output')
 DATA_DIRS  = [RAW_PATH, INTERIM_PATH, PROCESSED_PATH,]
 OUT_DIRS = [SENTENCE_ALIGNED_PATH, SIMPLE_ALIGNED_PATH]
 
-def rename_data_dirs():
+def rename_data_dirs(src_lang_code, tgt_lang_code):
     for data_dir in DATA_DIRS:
         print(data_dir)
         editions = os.listdir(data_dir)
@@ -32,36 +32,30 @@ def rename_data_dirs():
                 for f in files:
                     source = "{}/{}".format(ed_path,f)
                     
-                    # if re.search('nso', f):
-                    #     new = re.sub('nso', 'sot', f)
-                    #     dest = "{}/{}".format(ed_path,new)
-                    #     os.rename(source, dest)
+                    if re.search(src_lang_code, f):
+                        new = re.sub(src_lang_code, tgt_lang_code, f)
+                        dest = "{}/{}".format(ed_path,new)
+                        os.rename(source, dest)
 
-                    # if re.search('sep', f):
-                    #     new = re.sub('sep', 'nso', f)
-                    #     dest = "{}/{}".format(ed_path,new)
-                    #     os.rename(source, dest)
-
-def rename_out_dirs():
+                    
+def rename_out_dirs(src_lang_code, tgt_lang_code):
     for out_dir in OUT_DIRS:
         out_paths = os.listdir(out_dir)
         for out in out_paths:
             source = "{}/{}".format(out_dir,out)
-            print(source)
-            # if re.search('nso', out):
-            #     new = re.sub('nso', 'sot', out)
-            #     dest = "{}/{}".format(out_dir,new)
-            #     os.rename(source, dest)
-
-            if re.search('sep', out):
-                new = re.sub('sep', 'nso', out)
+            if re.search(src_lang_code, out):
+                new = re.sub(src_lang_code, tgt_lang_code, out)
                 dest = "{}/{}".format(out_dir,new)
                 os.rename(source, dest)
 
         
+
+        
 if __name__ == "__main__":
-    # rename_data_dirs()
-    rename_out_dirs()
+    rename_data_dirs('nso', 'sot')
+    rename_data_dirs('sep', 'nso')
+    rename_out_dirs('nso', 'sot')
+    rename_out_dirs('sep', 'nso')
            
     
             

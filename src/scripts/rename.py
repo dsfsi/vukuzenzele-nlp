@@ -48,15 +48,15 @@ def rename_out_dirs():
         for out in out_paths:
             source = "{}/{}".format(out_dir,out)
             print(source)
-            if re.search('nso', out):
-                new = re.sub('nso', 'sot', out)
-                dest = "{}/{}".format(out_dir,new)
-                os.rename(source, dest)
-
-            # if re.search('sep', out):
-            #     new = re.sub('sep', 'nso', out)
+            # if re.search('nso', out):
+            #     new = re.sub('nso', 'sot', out)
             #     dest = "{}/{}".format(out_dir,new)
             #     os.rename(source, dest)
+
+            if re.search('sep', out):
+                new = re.sub('sep', 'nso', out)
+                dest = "{}/{}".format(out_dir,new)
+                os.rename(source, dest)
 
         
 if __name__ == "__main__":

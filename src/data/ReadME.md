@@ -3,7 +3,7 @@ How to Run the vukuzenzele-extract.py:
 1. Identify the date and edition of the paper you would like to extract in vukuzenzele-nlp/data/raw.
 2. Open the files and identify the page numbers of the English version and other translated languages.
 3. Run the file from command line:
-   - python vukuzenzele-extract.py -f "file name" --eng "Pagefrom-PageTo" --rest "Pagefrom-PageTo" --sn "StoryNumber"
+   - python vukuzenzele-extract.py -f "folder name" --eng "Pagefrom-PageTo" --rest "Pagefrom-PageTo" --sn "StoryNumber"
    -  "--eng" English version page numbers, "--rest" for the translated languages.
    - No quotation marks needed.
 

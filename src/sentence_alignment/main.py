@@ -63,8 +63,6 @@ if __name__ == "__main__":
         # perform SA on LASER encoded sentences
         print("LASER aligning process started, output will be written to .csv in the data/sentence_align_output folder.")
         for (first_lang, sec_lang) in language_pairs:
-        # for first_lang in languages:
-            # for sec_lang in languages:
                 for edition in edition_keys:
                     if first_lang != sec_lang:
                         sentence_alignment.two_lang_alignment(first_lang, sec_lang, edition)

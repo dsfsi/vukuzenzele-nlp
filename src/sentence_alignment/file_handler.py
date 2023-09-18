@@ -1,4 +1,4 @@
-import os, re, pandas
+import os, re, json, pandas
 from pathlib import Path
 from datetime import date
 
@@ -8,6 +8,7 @@ raw_data_path = Path(root_path / 'data' / 'processed') #data/processed - raw in 
 token_data_path = Path(root_path  / 'data' / 'tokenised') #data/tokenised - the tokenised form
 output_data_path = Path(root_path / 'data' / 'sentence_align_output') #data/sentence_align_output - SA using encoders
 simp_out_data_path = Path(root_path / 'data' / 'simple_align_output')  #data/simple_align_output - plain SA, eg `hello` -> `hallo`
+out_path = Path(root_path / "data" / "opt_aligned_out")
 
 languages = ['afr', 'eng', 'nbl', 'nso', 'sep', 'ssw', 'tsn', 'tso', 'ven', 'xho', 'zul'] # List of SA languages
 
@@ -202,6 +203,24 @@ def append_to_simple_csv(src_lang, src_sentences, tgt_lang, tgt_sentences):
         df.to_csv(Path(simp_out_data_path / csv_path), mode='a',header=False, index=False)
     else: 
         df.to_csv(Path(simp_out_data_path / csv_path), mode='w',header=True, index=False)
+
+def write_to_jsonl(src,tgt,edition,data):
+    file_name = "aligned-{}-{}.jsonl".format(src, tgt)
+    file_path = out_path  / file_name
+
+    if not os.path.exists(out_path):
+        os.makedirs(out_path)
+
+    if file_name in os.listdir(out_path):
+        f = open(file_path, 'a')
+        for d in data:
+            f.write(json.dumps(d) + '\n')
+    else:
+        f = open(file_path, 'w')
+        for d in data:
+            f.write(json.dumps(d) + '\n')
+
+    # print("Aligned {}-{} from Cab Statement on {}".format(src,tgt, date))
 
 def count_aligned_pairs():
     with open("filtered_data.txt", 'w') as filtered_file:

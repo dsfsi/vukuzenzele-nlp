@@ -49,15 +49,15 @@ if __name__ == "__main__":
 
 
         # perform LASER encoding
-        # print("LASER encoding process started...")
-        # for edition in edition_keys:
-        #     for lang in lang_mappings.keys():
-        #         print("Encoding {} editions for {}".format(lang, edition))
-        #         if edition not in filepaths_dictionary[lang]:
-        #             continue
-        #         for txt in filepaths_dictionary[lang][edition]:
-        #             sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
-        # print("LASER encoding process completed")
+        print("LASER encoding process started...")
+        for edition in edition_keys:
+            for lang in lang_mappings.keys():
+                print("Encoding {} editions for {}".format(lang, edition))
+                if edition not in filepaths_dictionary[lang]:
+                    continue
+                for txt in filepaths_dictionary[lang][edition]:
+                    sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
+        print("LASER encoding process completed")
 
 
         # perform SA on LASER encoded sentences
@@ -67,7 +67,7 @@ if __name__ == "__main__":
             # for sec_lang in languages:
                 for edition in edition_keys:
                     if first_lang != sec_lang:
-                        sentence_alignment.two_lang_alignment(first_lang, sec_lang, edition)
+                        sentence_alignment.sentence_alignment(first_lang, sec_lang, edition)
         print("LASER aligning completed")
 
 

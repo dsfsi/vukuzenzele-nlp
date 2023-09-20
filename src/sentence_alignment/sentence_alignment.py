@@ -1,7 +1,7 @@
 import file_handler, sentence_embedding
 from sklearn.metrics.pairwise import cosine_similarity
 from pathlib import Path
-
+from pprint import pprint
 filepaths_dictionary = file_handler.build_filepaths_dictonary() 
 
 
@@ -31,6 +31,7 @@ def align(vectors, tokens):
         "tgt" : tgt_tokens[j],
         "score" : str(score),
       }
+      pprint(sentence)
       sentences.append(sentence)
     (i,j) = (i+1, j+1)
   return sentences
@@ -47,7 +48,7 @@ def update_indices(indexes, vectors):
 
             if i_temp < len(src_vect) and j_temp < len(tgt_vect):
                 score = cosine_score(src_vect[i_temp], tgt_vect[j_temp])
-
+                
                 if score > threshold:
                     (best_i, best_j) = (i_temp, j_temp)
                     break
@@ -61,29 +62,40 @@ def update_indices(indexes, vectors):
   
   
 def sentence_alignment(src, tgt, edition):
-  src_tokens = file_handler.read_file_as_array(edition, src)
-  tgt_tokens = file_handler.read_file_as_array(edition, tgt)
-  src_vectors = sentence_embedding.decode_sentences(edition, src)
-  tgt_vectors = sentence_embedding.decode_sentences(edition, tgt)
-  aligned_sentences = []
-  (i,j) = (0,0)
-  factor = 5
-  while i+factor < len(src_tokens) and j+factor < len(tgt_tokens):
-    # print(f"src: {i+factor} - {len(src_tokens)}")
-    # print(f"tgt: {j+factor} - {len(tgt_tokens)}")
-    some_sentences = align((src_vectors[i:i+factor], tgt_vectors[j:j+factor]), (src_tokens[i:i+factor], tgt_tokens[j:j+factor]))
-    if some_sentences != None and len(some_sentences) > 0:
-      aligned_sentences.extend(some_sentences)
-      length = len(some_sentences)
-      (i,j) = (i+length, j+length)
-    else:
-      (last_i,last_j) = (i,j)
-      (i,j) = update_indices((i,j), (src_vectors, tgt_vectors))
-      if (last_i,last_j) == (i,j):
-        print("failed to realign indexes, exiting...")
-        break
-    
-  file_handler.write_to_jsonl(src, tgt, edition, aligned_sentences)
+  if edition not in filepaths_dictionary[src].keys(): # if the edition doesn't exist for the source lang
+      return                                               # fail
+  elif edition not in filepaths_dictionary[tgt].keys(): # if the edition doesn't exist for the target lang
+      return                                                 # fail
+  
+  src_txt_paths = filepaths_dictionary[src][edition] # fetch the list of editions in the source lang
+  tgt_txt_paths = filepaths_dictionary[tgt][edition] # fetch the list of editions in the target lang
+  src_txt_paths.sort()
+  tgt_txt_paths.sort()
+
+  for i in range(len(src_txt_paths)): 
+    src_tokens = file_handler.read_file_as_array(edition, src_txt_paths[i])
+    tgt_tokens = file_handler.read_file_as_array(edition, tgt_txt_paths[i])
+    src_vectors = sentence_embedding.decode_sentences(edition, src_txt_paths[i])
+    tgt_vectors = sentence_embedding.decode_sentences(edition, tgt_txt_paths[i])
+    aligned_sentences = []
+    (i,j) = (0,0)
+    factor = 5
+    while i+factor < len(src_tokens) and j+factor < len(tgt_tokens):
+      # print(f"src: {i+factor} - {len(src_tokens)}")
+      # print(f"tgt: {j+factor} - {len(tgt_tokens)}")
+      some_sentences = align((src_vectors[i:i+factor], tgt_vectors[j:j+factor]), (src_tokens[i:i+factor], tgt_tokens[j:j+factor]))
+      if some_sentences != None and len(some_sentences) > 0:
+        aligned_sentences.extend(some_sentences)
+        length = len(some_sentences)
+        (i,j) = (i+length, j+length)
+      else:
+        (last_i,last_j) = (i,j)
+        (i,j) = update_indices((i,j), (src_vectors, tgt_vectors))
+        if (last_i,last_j) == (i,j):
+          print("failed to realign indexes, exiting...")
+          break
+      
+    file_handler.write_to_jsonl(src, tgt, edition, aligned_sentences)
 
 
 

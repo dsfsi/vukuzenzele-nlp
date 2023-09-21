@@ -36,36 +36,37 @@ if __name__ == "__main__":
         laser_config.download_tokeniser()
 
         # perform tokenisation
-        print("Tokenising process started...")
-        for edition in edition_keys:
-            for lang in languages:
-                if edition not in filepaths_dictionary[lang]:
-                    continue
-                for txt in filepaths_dictionary[lang][edition]:
-                    # print(f"Edition: {edition} \t Lang: {lang} \t Text: {txt}")
-                    text = file_handler.read_file_as_string(edition, txt)
-                    tokens = sentence_tokenisation.tokenise(text)
-                    file_handler.write_tokens_to_txt(edition, txt, tokens)
-        print("Tokenising process complete.")
+        # print("Tokenising process started...")
+        # for edition in edition_keys:
+        #     for lang in languages:
+        #         if edition not in filepaths_dictionary[lang]:
+        #             continue
+        #         for txt in filepaths_dictionary[lang][edition]:
+        #             # print(f"Edition: {edition} \t Lang: {lang} \t Text: {txt}")
+        #             text = file_handler.read_file_as_string(edition, txt)
+        #             tokens = sentence_tokenisation.tokenise(text)
+        #             file_handler.write_tokens_to_txt(edition, txt, tokens)
+        # print("Tokenising process complete.")
 
 
-        # perform LASER encoding
-        print("LASER encoding process started...")
-        for edition in edition_keys:
-            for lang in lang_mappings.keys():
-                print("Encoding {} editions for {}".format(lang, edition))
-                if edition not in filepaths_dictionary[lang]:
-                    continue
-                for txt in filepaths_dictionary[lang][edition]:
-                    sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
-        print("LASER encoding process completed")
+        # # perform LASER encoding
+        # print("LASER encoding process started...")
+        # for edition in edition_keys:
+        #     for lang in lang_mappings.keys():
+        #         print("Encoding {} editions for {}".format(lang, edition))
+        #         if edition not in filepaths_dictionary[lang]:
+        #             continue
+        #         for txt in filepaths_dictionary[lang][edition]:
+        #             sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
+        # print("LASER encoding process completed")
 
 
         # perform SA on LASER encoded sentences
         print("LASER aligning process started, output will be written to .csv in the data/sentence_align_output folder.")
         for (first_lang, sec_lang) in language_pairs:
                 for edition in edition_keys:
-                        sentence_alignment.sentence_alignment(first_lang, sec_lang, edition)
+                    if edition == '2018-02-ed1': continue
+                    sentence_alignment.sentence_alignment(first_lang, sec_lang, edition)
         print("LASER aligning completed")
 
 

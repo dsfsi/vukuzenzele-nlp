@@ -29,7 +29,7 @@ def extract_latest_edition():
     edition = open(file_path,'r').read() #read as str
 
     if not re.match('^\d{4}-\d{2}-[a-z]{2}\d$', edition): 
-        edition = '2020-01-ed1'
+        edition = '2018-01-ed1'
     return edition
 
 def write_latest_edition(edition):
@@ -220,7 +220,7 @@ def write_to_jsonl(src,tgt,edition,data):
         for d in data:
             f.write(json.dumps(d) + '\n')
 
-    # print("Aligned {}-{} from Cab Statement on {}".format(src,tgt, date))
+    print("Aligned {}-{} from Vuku edition {}".format(src,tgt, edition))
 
 def count_aligned_pairs():
     with open("filtered_data.txt", 'w') as filtered_file:

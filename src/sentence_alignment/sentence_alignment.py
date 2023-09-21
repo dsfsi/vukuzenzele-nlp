@@ -31,7 +31,7 @@ def align(vectors, tokens):
         "tgt" : tgt_tokens[j],
         "score" : str(score),
       }
-      pprint(sentence)
+      # print(sentence)
       sentences.append(sentence)
     (i,j) = (i+1, j+1)
   return sentences
@@ -71,8 +71,10 @@ def sentence_alignment(src, tgt, edition):
   tgt_txt_paths = filepaths_dictionary[tgt][edition] # fetch the list of editions in the target lang
   src_txt_paths.sort()
   tgt_txt_paths.sort()
+  
+  shortest = min(len(src_txt_paths), len(tgt_txt_paths))
 
-  for i in range(len(src_txt_paths)): 
+  for i in range(shortest): 
     src_tokens = file_handler.read_file_as_array(edition, src_txt_paths[i])
     tgt_tokens = file_handler.read_file_as_array(edition, tgt_txt_paths[i])
     src_vectors = sentence_embedding.decode_sentences(edition, src_txt_paths[i])

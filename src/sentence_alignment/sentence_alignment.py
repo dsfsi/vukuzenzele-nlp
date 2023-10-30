@@ -14,7 +14,7 @@ def cosine_score(src, tgt):
     """
     return cosine_similarity(src.reshape(1,-1), tgt.reshape(1,-1))[0][0]
 
-def align(vectors, tokens):
+def align(src,tgt,vectors, tokens):
   (i,j) = (0,0)
   src_vect, tgt_vect = vectors
   src_tokens, tgt_tokens = tokens
@@ -27,8 +27,8 @@ def align(vectors, tokens):
       return sentences
     else:
       sentence = {
-        "src" : src_tokens[i],
-        "tgt" : tgt_tokens[j],
+        src : src_tokens[i],
+        tgt : tgt_tokens[j],
         "score" : str(score),
       }
       # print(sentence)
@@ -85,7 +85,7 @@ def sentence_alignment(src, tgt, edition):
     while i+factor < len(src_tokens) and j+factor < len(tgt_tokens):
       # print(f"src: {i+factor} - {len(src_tokens)}")
       # print(f"tgt: {j+factor} - {len(tgt_tokens)}")
-      some_sentences = align((src_vectors[i:i+factor], tgt_vectors[j:j+factor]), (src_tokens[i:i+factor], tgt_tokens[j:j+factor]))
+      some_sentences = align(src, tgt, (src_vectors[i:i+factor], tgt_vectors[j:j+factor]), (src_tokens[i:i+factor], tgt_tokens[j:j+factor]))
       if some_sentences != None and len(some_sentences) > 0:
         aligned_sentences.extend(some_sentences)
         length = len(some_sentences)
@@ -98,8 +98,6 @@ def sentence_alignment(src, tgt, edition):
           break
       
     file_handler.write_to_jsonl(src, tgt, edition, aligned_sentences)
-
-
 
     
 def simple_langs_alignment(src_lang, tgt_lang, edition):

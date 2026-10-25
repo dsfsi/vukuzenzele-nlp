@@ -4,161 +4,62 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## About
 
-The Vuk'uzenzele South African Multilingual Corpus is a dataset containing parallel text data from the South African government magazine Vuk'uzenzele in 11 South African languages. The repository handles PDF extraction, sentence alignment using LASER encoders, and dataset preparation for HuggingFace.
+The Vuk'uzenzele South African Multilingual Corpus: parallel and monolingual text from the government magazine *Vuk'uzenzele* in the 11 official South African languages. The repo covers PDF extraction, LASER-based sentence alignment, and conversion and upload of the datasets to HuggingFace (`dsfsi/vukuzenzele-monolingual`, `dsfsi/vukuzenzele-sentence-aligned`). It follows the Cookiecutter Data Science layout. `src/features`, `src/models`, `src/visualization` and `src/data/make_dataset.py` are unused template stubs.
 
-## Development Commands
+## Commands
 
-### Environment Setup
 ```bash
-# Install dependencies
-python3 -m pip install -U pip setuptools wheel
-python3 -m pip install -r requirements.txt
+make requirements            # pip install -r requirements.txt (runs test_environment.py first)
+make lint                    # flake8 src (tox.ini: max-line-length 79, max-complexity 10)
+make clean                   # remove *.pyc / __pycache__
 
-# Or use Make
-make requirements
+# 1. Extract one story from an edition's PDFs into data/interim/{edition}/
+python src/data/vukuzenzele-extract.py -f 2020-01-ed1 --eng 3-7 --rest 4-8 --sn 01
+#   --eng / --rest: page ranges for the English PDF and the other 10 language PDFs; --sn: zero-padded story number
 
-# Test environment
-python3 test_environment.py
-```
-
-### Data Processing Pipeline
-
-**Extract text from PDFs:**
-```bash
-python src/data/vukuzenzele-extract.py -f "folder-name" --eng "1-5" --rest "2-6" --sn "01"
-# Example: python src/data/vukuzenzele-extract.py -f 2020-01-ed1 --eng 3-7 --rest 4-8 --sn 01
-```
-- `--eng`: Page range for English version
-- `--rest`: Page range for other 10 languages
-- `--sn`: Story number (zero-padded)
-- Extracted files go to `data/interim/{edition}/` and need manual refinement before moving to `data/processed/`
-
-**Perform sentence alignment:**
-```bash
+# 2. Sentence alignment (only editions newer than last_edition_read.txt)
 python3 src/sentence_alignment/main.py
-```
-This runs the full sentence alignment pipeline using LASER embeddings.
 
-### Data Format Conversion
-
-**Convert processed data to JSON:**
-```bash
-python src/scripts/processed_to_json.py
+# 3. Conversions / upload
+python src/scripts/processed_to_json.py     # -> data/editions_json/
+python src/scripts/processed_to_jsonl.py    # -> data/monolingual_jsonl/{lang}.jsonl (appends!)
+HFTOKEN=... python src/scripts/push_to_huggingface.py
 ```
 
-**Convert to JSONL format:**
-```bash
-python src/scripts/processed_to_jsonl.py
-```
+There is no test suite; `test_environment.py` only checks the Python version.
 
-**Push to HuggingFace:**
-```bash
-# Requires HFTOKEN environment variable
-export HFTOKEN=your_token_here
-python src/scripts/push_to_huggingface.py
-```
+## Architecture
 
-### Code Quality
-```bash
-make lint    # Run flake8 on src/
-make clean   # Remove compiled Python files
-```
+### Data flow
 
-## Architecture Overview
+`data/raw/` (PDFs) → `vukuzenzele-extract.py` → `data/interim/` → **manual cleanup** → `data/processed/{edition}/` → alignment pipeline → `data/opt_aligned_out/aligned-{src}-{tgt}.jsonl`
 
-### Data Flow Pipeline
+- Processed files are named `{edition}-vukuzenzele-{lang}-{story}.txt`, e.g. `2018-01-ed1-vukuzenzele-eng-07.txt`. Edition format is `YYYY-MM-edN`.
+- The processed file layout is positional: line 1 is the title, line 2 is blank, line 3 is the author, line 4 is blank, and the body follows. `processed_to_json(l).py` parses it by line index (`processed_to_jsonl.py` starts the body at index 5, so it skips the first body line).
+- The language is detected everywhere by regex on the filename (`afr|eng|nso|nbl|sot|ssw|tsn|tso|ven|xho|zul`).
 
-1. **Raw PDFs** (`data/raw/`) → Magazine PDFs organized by edition (e.g., `2020-01-ed1/`)
+### Sentence alignment (`src/sentence_alignment/`)
 
-2. **Extraction** (`src/data/vukuzenzele-extract.py`) → Extracts text from PDFs to `data/interim/`
-   - Handles column-to-row conversion, page separators, hyphenation fixes
-   - Requires manual refinement before processing
+Modules use flat imports (`import file_handler`), so run them as scripts from that directory's context (e.g. `python3 src/sentence_alignment/main.py`), not as a package.
 
-3. **Processed Data** (`data/processed/`) → Manually cleaned text files, organized by edition
+`main.py` runs these stages:
+1. **Edition selection.** `file_handler` reads `last_edition_read.txt` (it defaults to `2018-01-ed1`), converts edition names to dates (`edN` becomes the day), and keeps only the newer editions in `data/processed/`. `build_filepaths_dictonary()` (spelled that way in the code) is also limited to these new editions, giving `{lang: {edition: [files]}}`. When the run finishes, the file is set to the last edition processed. Delete or edit this file to reprocess editions.
+2. **LASER setup** (`laser_config.py`). Runs the install scripts in the vendored `LASER/` (skipped if `LASER/models` and `LASER/tools-external` exist), downloads the NLLB LASER encoders for the languages mapped in `main.lang_mappings`, and downloads NLTK `punkt`. An empty mapping means the default LASER2 encoder is used.
+3. **Tokenisation** (`sentence_tokenisation.py`). Lowercases the text, strips hyphens and bullets, normalises quotes and the Afrikaans `ŉ`, fixes missing spaces after full stops (keeping `.co.za` intact), then runs NLTK `sent_tokenize`. Output goes to `data/tokenised/`.
+4. **Embedding** (`sentence_embedding.py`). Shells out to `LASER/tasks/embed/embed.sh` and writes raw float32 1024-dim vectors to `data/embed/`.
+5. **Alignment** (`sentence_alignment.py`), run for every combination of the 11 languages (`itertools.combinations`). Edition `2018-02-ed1` is hard-skipped. Stories are paired **by sorted index** of the file lists, not by story number, so a story missing in one language misaligns every story after it. Within a story the alignment is greedy and monotonic, using windows of 5:
+   - A window is rejected if its first pair scores below 0.7.
+   - A window ends at the first pair scoring below 0.6.
+   - On failure, `update_indices` searches a 3×3 neighbourhood for a pair scoring above 0.7.
 
-4. **Sentence Alignment Pipeline** (`src/sentence_alignment/main.py`):
-   - **Tokenisation** → Cleans and tokenizes sentences (`sentence_tokenisation.py`)
-   - **LASER Encoding** → Embeds sentences using LASER models (`sentence_embedding.py`)
-   - **Alignment** → Aligns sentences across language pairs using cosine similarity (`sentence_alignment.py`)
-   - **Output** → CSV files in `data/opt_aligned_out/` with aligned sentence pairs
+   Results are **appended** to the JSONL files as `{src: ..., tgt: ..., "score": ...}`.
 
-5. **Format Conversion** (`src/scripts/`) → Converts to JSON/JSONL for HuggingFace upload
+The 0.65 cosine cutoff reported in the README is applied afterwards as a filter (`count_aligned_pairs`); it is not part of alignment. The `simple_langs_alignment` and CSV writers in `file_handler.py` belong to older output formats (`data/simple_align_output/`, `data/sentence_align_output/`), and their calls in `main.py` are commented out.
 
-### Key Modules
+### Language codes
 
-**`src/sentence_alignment/`** - Core sentence alignment logic using LASER
-- `main.py`: Orchestrates the alignment pipeline for new editions
-- `file_handler.py`: File I/O operations, builds filepath dictionaries, tracks processed editions
-- `laser_config.py`: Downloads and configures LASER models and tokenizers
-- `sentence_embedding.py`: Encodes sentences using LASER language encoders
-- `sentence_alignment.py`: Performs alignment using cosine similarity on embeddings
-- `sentence_tokenisation.py`: Tokenizes and cleans text
-- `last_edition_read.txt`: Tracks last processed edition to avoid reprocessing
-- `LASER/`: Facebook Research's LASER module for multilingual sentence embeddings
+The code uses 11 codes: `afr eng nbl nso sot ssw tsn tso ven xho zul`. `sot` is Sesotho (`sot_Latn`) and `nso` is Sepedi/Northern Sotho (`nso_Latn`). Older material (`data/.temp/`, `data/raw/2019-08-ed2/Sent/`, early commits) uses `sep` for Sepedi.
 
-**`src/scripts/`** - Data conversion utilities
-- `processed_to_json.py`: Converts processed data to JSON format
-- `processed_to_jsonl.py`: Converts to JSONL format
-- `push_to_huggingface.py`: Uploads datasets to HuggingFace Hub (requires HFTOKEN)
+### CI
 
-### Language Codes
-
-The corpus includes 11 South African languages with specific LASER model mappings:
-
-| Language   | Code | LASER Model    |
-|------------|------|----------------|
-| English    | eng  | (default)      |
-| Afrikaans  | afr  | (default)      |
-| isiNdebele | nbl  | (default)      |
-| isiXhosa   | xho  | xho_Latn       |
-| isiZulu    | zul  | zul_Latn       |
-| Sesotho    | nso  | nso_Latn       |
-| Sepedi     | sep  | (unused in SA) |
-| Setswana   | tsn  | tsn_Latn       |
-| Siswati    | ssw  | ssw_Latn       |
-| Tshivenda  | ven  | (default)      |
-| Xitstonga  | tso  | tso_Latn       |
-
-Note: `sot` (Sesotho) vs `nso` (Northern Sotho/Sepedi) - code uses both; check context.
-
-### Data Directory Structure
-
-```
-data/
-├── raw/                      # Raw magazine PDFs organized by edition
-├── interim/                  # Extracted text needing manual refinement
-├── processed/                # Manually cleaned text files by edition
-├── opt_aligned_out/          # LASER-aligned sentence pairs (CSV)
-├── simple_align_output/      # Simple 1:1 alignment output (CSV)
-├── sentence_align_output/    # Alternative alignment output
-├── editions_json/            # JSON format output
-├── monolingual_jsonl/        # JSONL format for monolingual data
-└── huggingface/              # Prepared datasets for HuggingFace
-```
-
-### Alignment Process Details
-
-The sentence alignment uses LASER (Language-Agnostic SEntence Representations):
-1. Text is tokenized and cleaned
-2. Sentences are embedded into a shared vector space using language-specific LASER models
-3. Cosine similarity between embeddings is calculated
-4. Sentence pairs with similarity >= 0.65 are considered aligned
-5. Results are saved as CSV with source/target language pairs
-
-The pipeline processes all possible language pair combinations and tracks progress to avoid reprocessing editions.
-
-## GitHub Actions
-
-The repository has a scheduled workflow (`.github/workflows/perform_sentence_alignment.yml`) that:
-- Runs bi-monthly on the 1st day of every 2nd month at 12:00 UTC
-- Can be triggered manually via workflow_dispatch
-- Executes `src/sentence_alignment/main.py` to process new editions
-- Auto-commits results if any changes are detected
-
-## Important Notes
-
-- PDF extraction requires manual verification and refinement - automated extraction cannot perfectly separate titles, authors, and content
-- The alignment pipeline uses `last_edition_read.txt` to track progress and skip already-processed editions
-- When working with HuggingFace uploads, set the `HFTOKEN` environment variable
-- The codebase follows a Cookiecutter Data Science project structure
-- Edition naming format: `YYYY-MM-edN` (e.g., `2020-01-ed1`)
+`.github/workflows/perform_sentence_alignment.yml` runs `main.py` on Python 3.8 on the 1st of every second month (and on `workflow_dispatch`), then auto-commits any changed outputs, including `last_edition_read.txt`.

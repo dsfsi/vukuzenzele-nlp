@@ -16,7 +16,7 @@ The Vuk'uzenzele South African Multilingual Corpus contains text data extracted 
 - **Raw data**: 192 editions from **November 2012 to December 2022**
 - **Processed & aligned data**: 84 editions from **January 2018 to December 2022**
 - **Languages**: 11 South African official languages
-- **Total aligned pairs**: 60,000+ sentence pairs across 55 language pair combinations
+- **Total aligned pairs**: 165,757 sentence pairs (159,987 with cosine score >= 0.65) across 55 language pair combinations
 
 ### Access the Datasets
 
@@ -36,73 +36,74 @@ The corpus includes all 11 South African official languages:
 
 |  Language  | Code |  Language  | Code |
 |------------|-------|------------|-------|
-| English    | eng   | Sepedi     | sep   |
+| English    | eng   | Sepedi     | nso   |
 | Afrikaans  | afr   | Setswana   | tsn   |
 | isiNdebele | nbl   | Siswati    | ssw   |
 | isiXhosa   | xho   | Tshivenda  | ven   |
 | isiZulu    | zul   | Xitstonga  | tso   |
-| Sesotho    | nso   |            |       |
+| Sesotho    | sot   |            |       |
 
 ### Number of Aligned Pairs with Cosine Similarity Score >= 0.65
-|src_lang| 	trg_lang| 	num_aligned_pairs| 
-|--------|---------|-----------|
-|ssw|      	xho|      	2202|
-|ssw|      	zul|      	2183|
-|xho|      	zul|      	2102|
-|nso|      	xho|      	2081|
-|nso|      	tso|      	2071|
-|ssw|      	tso|      	2034|
-|nso|      	ssw|      	2021|
-|tsn|      	tso|      	2020|
-|tsn|      	xho|      	2009|
-|tso|      	xho|      	2009|
-|nso|      	tsn|      	2002|
-|ssw|      	tsn|      	1987|
-|tso|      	zul|      	1957|
-|nso|      	zul|      	1953|
-|tsn|      	zul|      	1933|
-|eng|      	zul|      	1923|
-|eng|      	tso|      	1923|
-|eng|      	nso|      	1867|
-|eng|      	ssw|      	1821|
-|afr|      	xho|      	1816|
-|eng|      	xho|      	1801|
-|nbl|      	sep|      	1795|
-|sep|      	ven|      	1794|
-|afr|      	ssw|      	1783|
-|eng|      	tsn|      	1772|
-|afr|      	zul|      	1769|
-|afr|      	nso|      	1746|
-|nbl|      	ven|      	1699|
-|afr|      	eng|      	1661|
-|afr|      	tsn|      	1631|
-|afr|      	tso|      	1617|
-|afr|      	sep|      	551|
-|afr|      	ven|      	498|
-|afr|      	nbl|      	491|
-|nso|      	sep|      	410|
-|nso|      	ven|      	352|
-|sep|      	tso|      	326|
-|sep|      	tsn|      	319|
-|tso|      	ven|      	307|
-|sep|      	ssw|      	305|
-|sep|      	xho|      	300|
-|ssw|      	ven|      	290|
-|tsn|      	ven|      	285|
-|nbl|      	ssw|      	282|
-|nbl|      	nso|      	266|
-|ven|      	xho|      	260|
-|eng|      	sep|      	258|
-|nbl|      	xho|      	250|
-|sep|      	zul|      	249|
-|nbl|      	tso|      	238|
-|eng|      	ven|      	234|
-|nbl|      	tsn|      	230|
-|nbl|      	zul|      	226|
-|ven|      	zul|      	225|
-|eng|      	nbl|      	184|
 
+Counted from `data/opt_aligned_out/` (the files published as the HuggingFace sentence-aligned dataset).
 
+|src_lang|trg_lang|num_aligned_pairs|
+|--------|--------|-----------------|
+|xho|zul|4,628|
+|ssw|zul|4,610|
+|ssw|xho|4,483|
+|ssw|tso|4,402|
+|ssw|tsn|4,368|
+|tso|zul|4,345|
+|sot|xho|4,328|
+|sot|zul|4,296|
+|afr|xho|4,295|
+|tso|xho|4,281|
+|nso|sot|4,273|
+|sot|ssw|4,273|
+|afr|zul|4,268|
+|sot|tso|4,253|
+|sot|tsn|4,249|
+|tsn|tso|4,231|
+|tsn|zul|4,225|
+|afr|ssw|4,213|
+|nso|zul|4,177|
+|nso|tso|4,146|
+|nso|ssw|4,133|
+|tsn|xho|4,133|
+|nso|tsn|4,100|
+|afr|sot|4,099|
+|afr|tso|4,091|
+|nso|xho|4,087|
+|afr|nso|4,054|
+|afr|tsn|3,884|
+|eng|sot|3,744|
+|afr|eng|3,713|
+|eng|ssw|3,711|
+|eng|zul|3,702|
+|eng|tso|3,692|
+|eng|xho|3,686|
+|eng|nso|3,674|
+|nbl|ven|3,562|
+|eng|tsn|3,521|
+|afr|ven|959|
+|afr|nbl|784|
+|sot|ven|541|
+|ssw|ven|476|
+|ven|xho|464|
+|nbl|xho|447|
+|tso|ven|447|
+|tsn|ven|436|
+|nbl|ssw|419|
+|nbl|sot|408|
+|nso|ven|405|
+|ven|zul|392|
+|nbl|tsn|336|
+|nbl|zul|336|
+|nbl|tso|330|
+|eng|ven|329|
+|nbl|nso|306|
+|eng|nbl|242|
 
 ## Getting Started
 
@@ -128,8 +129,8 @@ The repository contains data in multiple stages of processing:
 ├── raw/                     # Raw PDFs of Vuk'uzenzele magazine (2012-2022, 192 editions)
 ├── interim/                 # Extracted text requiring manual refinement
 ├── processed/               # Manually cleaned text files (2018-2022, 84 editions)
-├── opt_aligned_out/         # LASER-aligned sentence pairs (CSV format)
-├── sentence_align_output/   # Sentence alignment outputs
+├── opt_aligned_out/         # LASER-aligned sentence pairs (JSONL, one file per language pair)
+├── sentence_align_output/   # Older LASER alignment output (CSV, superseded by opt_aligned_out)
 ├── simple_align_output/     # Simple 1:1 sentence alignment (CSV)
 ├── editions_json/           # JSON format outputs
 ├── monolingual_jsonl/       # JSONL format for HuggingFace
@@ -144,8 +145,8 @@ Each edition follows the naming format: `YYYY-MM-edN` (e.g., `2020-01-ed1`).
 
 ### Add More Years 🎯
 
-The Vuk'uzenzele magazine has been published since 2003, but our corpus currently only covers **2012-2022**. We need help expanding coverage to:
-- **Earlier years**: 2003-2011 editions
+The Vuk'uzenzele magazine has been published since October 2005, but our corpus currently only covers **November 2012 to December 2022**. We need help expanding coverage to:
+- **Earlier years**: 2005-2012 editions
 - **Recent years**: 2023 onwards
 
 ### How to Contribute
